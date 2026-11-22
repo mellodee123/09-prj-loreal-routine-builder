@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,32 +15,88 @@
     <link rel="stylesheet" href="style.css" />
   </head>
 
-  <body>
+  <body dir="ltr" lang="en">
     <div class="page-wrapper">
       <!------- Header / Branding ------->
       <header class="site-header">
-        <img src="img/loreal-logo.png" alt="L'Oréal Logo" class="logo" />
+        <div class="header-top">
+          <img src="img/loreal-logo.png" alt="L'Oréal Logo" class="logo" />
+          <button
+            id="themeToggle"
+            class="theme-toggle"
+            aria-label="Toggle light/dark mode"
+            title="Toggle theme"
+          >
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <button
+            id="languageToggle"
+            class="language-toggle"
+            aria-label="Toggle language (English/العربية)"
+          >
+            <span class="lang-flag" id="langFlag">🌐 العربية</span>
+          </button>
+        </div>
         <h1 class="site-title">Smart Routine &amp; Product Advisor</h1>
       </header>
 
-      <!-- Category Filter -->
+      <!-- Product Search -->
       <div class="search-section">
-        <select id="categoryFilter">
-          <option value="" disabled selected>Choose a Category</option>
-          <option value="cleanser">Cleansers</option>
-          <option value="moisturizer">Moisturizers & Treatments</option>
-          <option value="haircare">Haircare</option>
-          <option value="makeup">Makeup</option>
-          <option value="hair color">Hair Color</option>
-          <option value="hair styling">Hair Styling</option>
-          <option value="men's grooming">Men's Grooming</option>
-          <option value="suncare">Suncare</option>
-          <option value="fragrance">Fragrance</option>
-        </select>
+        <div class="search-box">
+          <label for="categoryFilter" class="search-label">Filter by Category</label>
+          <select id="categoryFilter" aria-label="Filter products by category">
+            <option value="">Choose a Category</option>
+            <option value="Cleansers">Cleansers</option>
+            <option value="Moisturizers & Treatments">Moisturizers & Treatments</option>
+            <option value="Haircare">Haircare</option>
+            <option value="Makeup">Makeup</option>
+            <option value="Hair Color">Hair Color</option>
+            <option value="Hair Styling">Hair Styling</option>
+            <option value="Men's Grooming">Men's Grooming</option>
+            <option value="Suncare">Suncare</option>
+            <option value="Fragrance">Fragrance</option>
+          </select>
+          <label for="productSearch" class="search-label search-label-2">Search Products</label>
+          <input
+            id="productSearch"
+            type="text"
+            placeholder="🔍 Search by product name or keyword..."
+            aria-label="Search products by name or keyword"
+          />
+        </div>
       </div>
 
       <!-- Products Grid -->
       <div id="productsContainer" class="products-grid"></div>
+
+      <!-- Product Details Modal -->
+      <div
+        id="productModal"
+        class="modal"
+        aria-labelledby="modalTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-content">
+          <button
+            id="closeModal"
+            class="close-btn"
+            aria-label="Close product details"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="modal-body">
+            <img id="modalImage" src="" alt="" class="modal-image" />
+            <div class="modal-info">
+              <h2 id="modalTitle"></h2>
+              <p id="modalBrand" class="modal-brand"></p>
+              <p id="modalDescription" class="modal-description"></p>
+              <button id="addToRoutineBtn" class="add-to-routine-btn">
+                <i class="fa-solid fa-plus"></i> Add to Routine
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Selected Products -->
       <div class="selected-products">
@@ -66,12 +122,41 @@
             autocomplete="off"
             required
           />
+          <button type="button" id="searchBtn" class="search-btn" title="Search the web">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="visually-hidden">Search web</span>
+          </button>
           <button type="submit" id="sendBtn">
             <i class="fa-solid fa-paper-plane"></i>
             <span class="visually-hidden">Send</span>
           </button>
         </form>
       </section>
+
+      <!------- Web Search Modal ------->
+      <div id="searchModal" class="modal" aria-labelledby="searchModalTitle" aria-hidden="true">
+        <div class="modal-content search-modal">
+          <button id="closeSearchModal" class="close-btn" aria-label="Close search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="modal-body">
+            <h2 id="searchModalTitle">Search the Web</h2>
+            <form id="searchForm" class="search-form">
+              <input
+                id="searchInput"
+                type="text"
+                placeholder="Search for skincare tips, product reviews, beauty trends..."
+                autocomplete="off"
+                required
+              />
+              <button type="submit" class="search-submit-btn">
+                <i class="fa-solid fa-search"></i> Search
+              </button>
+            </form>
+            <div id="searchResults" class="search-results"></div>
+          </div>
+        </div>
+      </div>
 
       <!------- Footer Links ------->
       <footer class="site-footer">
