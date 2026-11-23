@@ -5,6 +5,9 @@ Users will be able to browse real L’Oréal brand products, select the ones the
 
 ## Features
 
+Use **Search Products** to filter the product catalog. The separate **Search web**
+button above the chat opens a web search for beauty information.
+
 ### ✨ RTL Language Support (Right-to-Left)
 The routine builder now supports right-to-left (RTL) languages like Arabic, Hebrew, and Persian!
 

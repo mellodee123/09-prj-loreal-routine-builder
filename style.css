@@ -271,6 +271,32 @@ body {
   text-align: right;
 }
 
+.chat-message {
+  margin-top: 12px;
+  padding: 8px;
+  border-radius: 4px;
+  background: #f9f7f4;
+  color: #333;
+}
+
+.user-message {
+  margin-top: 16px;
+  background: #f0f0f0;
+}
+
+.advisor-message > strong {
+  color: #b8002b;
+}
+
+.chat-window a {
+  color: var(--loreal-gold);
+}
+
+.chat-message a,
+body[data-theme="white"] .chat-window a {
+  color: #994000;
+}
+
 /* placeholder message */
 .placeholder-message {
   width: 100%;
@@ -453,11 +479,7 @@ body[data-theme="white"] .product-card {
 
 body[data-theme="white"] .product-card h3,
 body[data-theme="white"] .product-card p {
-  color: #e3a535 !important;
-}
-
-body[data-theme="white"] .product-card .product-info h3 {
-  color: #e3a535 !important;
+  color: #333;
 }
 
 body[data-theme="white"] .product-card:hover {
@@ -1359,17 +1381,9 @@ body[data-theme="black"] .theme-toggle:hover {
   }
 }
 
-/* Force gold text for product cards in light mode */
-body[data-theme="white"] .product-card h3 {
-  color: #e3a535 !important;
-}
-
-body[data-theme="white"] .product-card p {
-  color: #e3a535 !important;
-}
-
 /* —— Web Search Button —— */
 .search-btn {
+  margin-bottom: 12px;
   padding: 10px 12px;
   background: rgba(227, 165, 53, 0.1);
   color: var(--loreal-gold);
@@ -1381,12 +1395,27 @@ body[data-theme="white"] .product-card p {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+}
+
+body[data-theme="white"] .search-btn {
+  color: #704600;
 }
 
 .search-btn:hover {
   background: var(--loreal-gold);
   color: var(--loreal-dark);
   box-shadow: 0 4px 12px rgba(227, 165, 53, 0.3);
+}
+
+body[data-theme="white"] .search-btn:hover {
+  color: var(--loreal-dark);
+}
+
+.search-btn:focus-visible {
+  outline: 2px solid var(--loreal-red);
+  outline-offset: 2px;
 }
 
 .search-btn:active {

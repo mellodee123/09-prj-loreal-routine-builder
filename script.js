@@ -25,6 +25,7 @@ const translations = {
     suncare: "Suncare",
     fragrance: "Fragrance",
     searchPlaceholder: "🔍 Search by product name or keyword...",
+    searchWeb: "Search web",
     selectCategory: "Select a category to view products",
     noProductsFound: "No products found. Try a different search or category.",
     selectedProducts: "Selected Products",
@@ -60,6 +61,7 @@ const translations = {
     suncare: "واقي الشمس",
     fragrance: "العطور",
     searchPlaceholder: "🔍 ابحث بالاسم أو الكلمة المفتاحية...",
+    searchWeb: "البحث في الويب",
     selectCategory: "اختر فئة لعرض المنتجات",
     noProductsFound: "لم يتم العثور على منتجات. جرب بحثًا أو فئة مختلفة.",
     selectedProducts: "المنتجات المختارة",
@@ -96,7 +98,7 @@ function t(key) {
 /* Function to convert markdown to HTML for displaying AI responses with links and citations */
 function markdownToHTML(text) {
   // Convert markdown links [text](url) to HTML <a> tags
-  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--loreal-red); text-decoration: underline;">$1</a>');
+  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   
   // Convert bold **text** to <strong>
   text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
@@ -167,6 +169,7 @@ function updateUIText() {
   
   // Update search placeholder
   productSearch.placeholder = t("searchPlaceholder");
+  document.querySelector("#searchBtn span").textContent = t("searchWeb");
   
   // Update selected products heading
   const selectedProductsHeading = document.querySelector(".selected-products h2");
@@ -238,7 +241,6 @@ function initializeTheme() {
   const savedTheme = localStorage.getItem("loreal_theme") || "dark";
   document.body.setAttribute("data-theme", savedTheme);
   updateThemeIcon(savedTheme);
-  updateProductCardColors(savedTheme);
 }
 
 /* Update theme icon based on current theme */
@@ -254,18 +256,6 @@ function updateThemeIcon(theme) {
   }
 }
 
-/* Update product card colors based on theme */
-function updateProductCardColors(theme) {
-  const productCards = document.querySelectorAll(".product-card h3, .product-card p");
-  productCards.forEach((element) => {
-    if (theme === "white") {
-      element.style.color = "#e3a535"; // Gold
-    } else {
-      element.style.color = ""; // Reset to CSS default
-    }
-  });
-}
-
 /* Theme toggle event listener */
 themeToggle.addEventListener("click", () => {
   const currentTheme = document.body.getAttribute("data-theme") || "dark";
@@ -273,7 +263,6 @@ themeToggle.addEventListener("click", () => {
   document.body.setAttribute("data-theme", newTheme);
   localStorage.setItem("loreal_theme", newTheme);
   updateThemeIcon(newTheme);
-  updateProductCardColors(newTheme);
 });
 
 /* Keep track of conversation for follow-up questions */
@@ -391,9 +380,6 @@ function displayProducts(products) {
     )
     .join("");
   
-  /* Apply theme colors to product cards */
-  const currentTheme = document.body.getAttribute("data-theme") || "dark";
-  updateProductCardColors(currentTheme);
 }
 
 /* Update the Selected Products list display */
@@ -709,7 +695,7 @@ chatForm.addEventListener("submit", async (e) => {
 
   /* Show loading message */
   chatWindow.innerHTML += `
-    <p style="margin-top: 16px; padding: 8px; background: #f0f0f0; border-radius: 4px;">
+    <p class="chat-message user-message">
       <strong>${t("you")}:</strong> ${question}
     </p>
     <p style="margin-top: 12px; color: #666; font-style: italic;">
@@ -740,8 +726,8 @@ chatForm.addEventListener("submit", async (e) => {
 
     /* Display the response with markdown conversion for links and formatting */
     chatWindow.innerHTML += `
-      <p style="margin-top: 12px; padding: 8px; background: var(--loreal-light); border-radius: 4px;">
-        <strong style="color: var(--loreal-red);">${t("advisor")}:</strong><br>
+      <p class="chat-message advisor-message">
+        <strong>${t("advisor")}:</strong><br>
         ${markdownToHTML(aiReply)}
       </p>
     `;
