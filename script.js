@@ -327,11 +327,28 @@ function saveSelections() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(idsArray));
 }
 
+/* Map dropdown labels to product category values */
+function mapCategoryLabel(label) {
+  const categoryMap = {
+    "Cleansers": "cleanser",
+    "Moisturizers & Treatments": "moisturizer",
+    "Haircare": "haircare",
+    "Makeup": "makeup",
+    "Hair Color": "haircolor",
+    "Hair Styling": "hairstyling",
+    "Men's Grooming": "mensgrooming",
+    "Suncare": "suncare",
+    "Fragrance": "fragrance",
+  };
+  return categoryMap[label] || label;
+}
+
 /* Filter products based on category and search term */
 function getFilteredProducts(allProductsData) {
   return allProductsData.filter((product) => {
-    /* Match category filter */
-    const categoryMatch = !currentCategory || product.category === currentCategory;
+    /* Match category filter - normalize both sides for comparison */
+    const targetCategory = mapCategoryLabel(currentCategory);
+    const categoryMatch = !currentCategory || product.category.toLowerCase() === targetCategory.toLowerCase();
     
     /* Match search term in name or description */
     const searchMatch = !currentSearchTerm || 
