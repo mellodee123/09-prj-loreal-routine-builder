@@ -297,6 +297,16 @@ body[data-theme="white"] .chat-window a {
   color: #994000;
 }
 
+body:not([data-theme="white"]) .chat-message {
+  background: transparent;
+  color: #fff;
+}
+
+body:not([data-theme="white"]) .advisor-message > strong,
+body:not([data-theme="white"]) .chat-message a {
+  color: var(--loreal-gold);
+}
+
 /* placeholder message */
 .placeholder-message {
   width: 100%;
